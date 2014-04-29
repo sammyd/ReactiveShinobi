@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface SCWebSocketConnector : NSObject
 
 - (instancetype)initWithURL:(NSURL *)url;
+
+@property (nonatomic, strong, readonly) RACSignal *messages;
 
 - (void)start;
 - (void)stop;

@@ -1,10 +1,18 @@
 PODS:
+  - ReactiveCocoa (2.3):
+    - ReactiveCocoa/Core
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/Core (2.3):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.3)
   - SocketRocket (0.3.1-beta2)
 
 DEPENDENCIES:
+  - ReactiveCocoa (~> 2.3)
   - SocketRocket
 
 SPEC CHECKSUMS:
+  ReactiveCocoa: 1f6265f9d521923d3efcc37b00722cefc16df269
   SocketRocket: 7ac946bcce46287a791dfff3c1f8daa692821dae
 
 COCOAPODS: 0.32.1

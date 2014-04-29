@@ -23,6 +23,9 @@
     
     self.wsConnector = [[SCWebSocketConnector alloc] initWithURL:[NSURL URLWithString:@"ws://wiki-update-sockets.herokuapp.com/"]];
     [self.wsConnector start];
+    [self.wsConnector.messages subscribeNext:^(id x) {
+        NSLog(@"%@", x);
+    }];
     
     return YES;
 }
