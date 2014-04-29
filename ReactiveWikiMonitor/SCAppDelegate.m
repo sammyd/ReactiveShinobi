@@ -7,12 +7,23 @@
 //
 
 #import "SCAppDelegate.h"
+#import "SCWebSocketConnector.h"
+
+@interface SCAppDelegate ()
+
+@property (nonatomic, strong) SCWebSocketConnector *wsConnector;
+
+@end
 
 @implementation SCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    self.wsConnector = [[SCWebSocketConnector alloc] initWithURL:[NSURL URLWithString:@"ws://wiki-update-sockets.herokuapp.com/"]];
+    [self.wsConnector start];
+    
     return YES;
 }
 							
