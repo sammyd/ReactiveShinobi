@@ -103,8 +103,7 @@
     });
     
     // Create a new dictionary with the appropriate values in
-    NSMutableDictionary *parsed = [NSMutableDictionary new];
-    parsed[@"type"] = [deserialised objectForKey:@"type"];
+    NSMutableDictionary *parsed = [NSMutableDictionary dictionaryWithDictionary:deserialised];
     parsed[@"time"] = [df dateFromString:[deserialised objectForKey:@"time"]];
     
     return [parsed copy];

@@ -42,10 +42,9 @@
     
     self.wsConnector = [[SCWebSocketConnector alloc] initWithURL:[NSURL URLWithString:@"ws://wiki-update-sockets.herokuapp.com/"]];
     [self.wsConnector start];
-    [[[[[self.wsConnector.messages
-      filter:^BOOL(NSDictionary *value) {
-            return [value[@"type"] isEqualToString:@"unspecified"];
-      }]
+    
+    // Calculate the rate
+    [[[[self.wsConnector.messages
       bufferWithTime:5.0 onScheduler:scheduler]
       map:^id(RACTuple *value) {
           return @([value count] / 5.0);
@@ -55,6 +54,37 @@
          NSLog(@"Rate: %@", x);
          [self.datasource appendValue:x];
       }];
+    
+    // Extract the edited content
+    [[[self.wsConnector.messages
+     filter:^BOOL(NSDictionary *value) {
+         return [value[@"type"] isEqualToString:@"unspecified"];
+     }]
+     map:^id(NSDictionary *value) {
+         return value[@"content"];
+     }]
+    subscribeNext:^(NSString *x) {
+        NSLog(@"Content Edited: %@", x);
+     }];
+    
+    // Find the new user events
+    [[[[self.wsConnector.messages
+    filter:^BOOL(NSDictionary *value) {
+        return [value[@"type"] isEqualToString:@"newuser"];
+    }]
+    map:^id(NSDictionary *value) {
+        return [SChartAnnotation verticalLineAtPosition:value[@"time"]
+                                              withXAxis:self.chart.xAxis
+                                               andYAxis:self.chart.yAxis
+                                              withWidth:2.0
+                                              withColor:[[UIColor redColor] colorWithAlphaComponent:0.5]];
+    }]
+    deliverOn:[RACScheduler mainThreadScheduler]]
+    subscribeNext:^(SChartAnnotation *annotation) {
+        [self.chart addAnnotation:annotation];
+        [self.chart redrawChart];
+    }];
+    
 }
 
 @end
