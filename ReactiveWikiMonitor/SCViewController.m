@@ -7,8 +7,15 @@
 //
 
 #import "SCViewController.h"
+#import <ShinobiCharts/ShinobiChart.h>
+#import "SCLiveDataSource.h"
+#import "SCWebSocketConnector.h"
 
 @interface SCViewController ()
+
+@property (nonatomic, strong) ShinobiChart *chart;
+@property (nonatomic, strong) SCLiveDataSource *datasource;
+@property (nonatomic, strong) SCWebSocketConnector *wsConnector;
 
 @end
 
@@ -18,12 +25,36 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    self.chart = [[ShinobiChart alloc] initWithFrame:self.view.bounds
+                                withPrimaryXAxisType:SChartAxisTypeDateTime
+                                withPrimaryYAxisType:SChartAxisTypeNumber];
+    
+    self.chart.licenseKey = @"";
+    
+    self.datasource = [[SCLiveDataSource alloc] initWithChart:self.chart];
+    [self.view addSubview:self.chart];
+    
+    
+    
+    RACScheduler *scheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault
+                                                             name:@"com.shinobicontrols.ReactiveWikiMonitor.bufferScheduler"];
+    
+    self.wsConnector = [[SCWebSocketConnector alloc] initWithURL:[NSURL URLWithString:@"ws://wiki-update-sockets.herokuapp.com/"]];
+    [self.wsConnector start];
+    [[[[[self.wsConnector.messages
+      filter:^BOOL(NSDictionary *value) {
+            return [value[@"type"] isEqualToString:@"unspecified"];
+      }]
+      bufferWithTime:5.0 onScheduler:scheduler]
+      map:^id(RACTuple *value) {
+          return @([value count] / 5.0);
+      }]
+      deliverOn:[RACScheduler mainThreadScheduler]]
+      subscribeNext:^(id x) {
+         NSLog(@"Rate: %@", x);
+         [self.datasource appendValue:x];
+      }];
 }
 
 @end
