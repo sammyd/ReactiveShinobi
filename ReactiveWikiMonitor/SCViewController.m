@@ -13,7 +13,6 @@
 
 @interface SCViewController ()
 
-@property (nonatomic, strong) ShinobiChart *chart;
 @property (nonatomic, strong) SCLiveDataSource *datasource;
 @property (nonatomic, strong) SCWebSocketConnector *wsConnector;
 
@@ -26,9 +25,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.chart = [[ShinobiChart alloc] initWithFrame:self.view.bounds
-                                withPrimaryXAxisType:SChartAxisTypeDateTime
-                                withPrimaryYAxisType:SChartAxisTypeNumber];
+    SChartDateTimeAxis *xAxis = [SChartDateTimeAxis new];
+    SChartNumberAxis *yAxis = [[SChartNumberAxis alloc] initWithRange:[[SChartNumberRange alloc] initWithMinimum:@0 andMaximum:@5]];
+    self.chart.xAxis = xAxis;
+    self.chart.yAxis = yAxis;
     
     self.chart.licenseKey = @"";
     
@@ -56,15 +56,16 @@
       }];
     
     // Extract the edited content
-    [[[self.wsConnector.messages
+    [[[[self.wsConnector.messages
      filter:^BOOL(NSDictionary *value) {
          return [value[@"type"] isEqualToString:@"unspecified"];
      }]
      map:^id(NSDictionary *value) {
          return value[@"content"];
      }]
-    subscribeNext:^(NSString *x) {
-        NSLog(@"Content Edited: %@", x);
+     deliverOn:[RACScheduler mainThreadScheduler]]
+     subscribeNext:^(NSString *x) {
+        self.tickerLabel.text = x;
      }];
     
     // Find the new user events
@@ -85,6 +86,11 @@
         [self.chart redrawChart];
     }];
     
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscape;
 }
 
 @end
