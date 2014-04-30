@@ -20,11 +20,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+ 
+    RACScheduler *scheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault
+                                                             name:@"com.shinobicontrols.ReactiveWikiMonitor.bufferScheduler"];
     
     self.wsConnector = [[SCWebSocketConnector alloc] initWithURL:[NSURL URLWithString:@"ws://wiki-update-sockets.herokuapp.com/"]];
     [self.wsConnector start];
-    [self.wsConnector.messages subscribeNext:^(id x) {
-        NSLog(@"%@", x);
+    [[[[self.wsConnector.messages
+    filter:^BOOL(NSDictionary *value) {
+        return [value[@"type"] isEqualToString:@"unspecified"];
+    }]
+    bufferWithTime:5.0 onScheduler:scheduler]
+    map:^id(RACTuple *value) {
+        return @([value count] / 5.0);
+    }]
+    subscribeNext:^(id x) {
+        NSLog(@"Rate: %@", x);
     }];
     
     return YES;
