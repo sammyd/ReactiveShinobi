@@ -44,29 +44,27 @@
     [self.wsConnector start];
     
     // Calculate the rate
-    [[[[self.wsConnector.messages
+    [[[[[self.wsConnector.messages
       bufferWithTime:5.0 onScheduler:scheduler]
       map:^id(RACTuple *value) {
           return @([value count] / 5.0);
       }]
       deliverOn:[RACScheduler mainThreadScheduler]]
+      logNext]
       subscribeNext:^(id x) {
-         NSLog(@"Rate: %@", x);
          [self.datasource appendValue:x];
       }];
     
     // Extract the edited content
-    [[[[self.wsConnector.messages
+    RAC(self.tickerLabel, text) =
+     [[[self.wsConnector.messages
      filter:^BOOL(NSDictionary *value) {
          return [value[@"type"] isEqualToString:@"unspecified"];
      }]
      map:^id(NSDictionary *value) {
          return value[@"content"];
      }]
-     deliverOn:[RACScheduler mainThreadScheduler]]
-     subscribeNext:^(NSString *x) {
-        self.tickerLabel.text = x;
-     }];
+     deliverOn:[RACScheduler mainThreadScheduler]];
     
     // Find the new user events
     [[[[self.wsConnector.messages
