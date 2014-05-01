@@ -25,8 +25,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    self.chart.title = @"Wikipedia Live Updates";
+    
     SChartDateTimeAxis *xAxis = [SChartDateTimeAxis new];
     SChartNumberAxis *yAxis = [[SChartNumberAxis alloc] initWithRange:[[SChartNumberRange alloc] initWithMinimum:@0 andMaximum:@5]];
+    yAxis.title = @"Edit Rate (edits/second)";
     self.chart.xAxis = xAxis;
     self.chart.yAxis = yAxis;
     
