@@ -29,6 +29,10 @@ If you need additional help with CocoaPods, including how to get started with
 installing it, then check out the fantastic help at
 [guides.cocoapods.org](http://guides.cocoapods.org/).
 
+Further info on ReactiveCocoa is available at
+[github.com/ReactiveCocoa/ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa).
+
+
 ### Contributing
 
 We'd love to see your contributions to this project - please go ahead and fork
