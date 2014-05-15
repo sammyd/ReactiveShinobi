@@ -160,7 +160,60 @@ received from the websocket - really simple.
 
 #### Deserializing the events
 
+The messages returned from `SRWebSocket` are `NSString` objects containing JSON
+data. Using `NSJSONSerialization` you can convert them to `NSDictionary`
+objects, and then go on to parse the data string into an `NSDate`:
+
+    - (NSDictionary *)parseWikipediaUpdateMessage:(NSString *)message error:(NSError **)error
+    {
+        // Extract the JSON
+        NSData *messageData = [message dataUsingEncoding:NSUTF8StringEncoding];
+        id deserialised = [NSJSONSerialization JSONObjectWithData:messageData
+                                                          options:0
+                                                            error:error];
+        if(*error) {
+            return nil;
+        }
+        
+        // Want to convert the time string to an NSDate
+        static NSDateFormatter *df = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            df = [[NSDateFormatter alloc] init];
+            [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+        });
+        
+        // Create a new dictionary with the appropriate values in
+        NSMutableDictionary *parsed = [NSMutableDictionary dictionaryWithDictionary:deserialised];
+        parsed[@"time"] = [df dateFromString:[deserialised objectForKey:@"time"]];
+        
+        return [parsed copy];
+    }
+
+This attempts to deserialize the JSON string, and then use a static
+`NSDateFormatter` to parse the date string. Update the delegate method as
+follows to use this new utility method:
+
+    - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
+    {
+        NSError *error;
+        NSDictionary *deserialised = [self parseWikipediaUpdateMessage:message error:&error];
+        if(error) {
+            NSLog(@"Error parsing JSON String: %@", error);
+            return;
+        }
+        
+        NSLog(@"Message received: %@", deserialised);
+    }
+
+If you run the app up again you'll see that the log now contains `NSDictionary`
+instances - which is a much more useful object to pass around.
+
+
 ### Creating a WebSocket RACSignal
+
+
+
 
 ### A Live-data streaming SChartDatasource
 
