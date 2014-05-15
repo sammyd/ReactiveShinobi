@@ -42,7 +42,123 @@ The ReactiveCocoa and SocketRocket dependencies are handled by CocoaPods, so
 you'll need to run `pod install` in the project directory once you have cloned
 it.
 
+
 ### Connecting to a WebSocket
+
+The WebSocket specification was developed as part of HTML5, and provides for
+the full-duplex delivery of a stream of messages. To connect to websocket from
+inside an iOS app, the lovely people at square have open-sourced a library
+called [SocketRocket](https://github.com/square/SocketRocket). It has a really
+simple API, which uses delegation to return the messages received.
+
+I've created a simple websocket you can connect to, which streams live updates
+of the english version of Wikipedia - available at
+`ws://wiki-update-sockets.herokuapp.com/`. The messages sent are JSON formatted
+and look like the following sample responses:
+
+    RESPONSE: {
+                "type":"unspecified",
+                "content":"Wikipedia talk:Articles for creation/Bonnie ZoBell",
+                "time":"2014-05-15T14:45:59.175Z"
+              }
+    RESPONSE: {
+                "type":"unspecified",
+                "content":"Wikipedia:WikiProject Spam/LinkReports/blog.wifirst.fr",
+                "time":"2014-05-15T14:45:59.247Z"
+              }
+    RESPONSE: {
+                "type":"special",
+                "content":"",
+                "time":"2014-05-15T14:46:00.262Z"
+              }
+    RESPONSE: {
+                "type":"unspecified",
+                "content":"Manhattan Film Academy",
+                "time":"2014-05-15T14:46:00.828Z"
+              }
+
+There are several different options for the `type` property - the important
+thing to note is that all page edits have a `type` of `unspecified` and their
+`content` property specifies the name of the page edited. You can see the
+output yourself using the 'echo' service from
+[websocket.org](http://www.websocket.org/echo.html), provided your browser
+supports websockets.
+
+To use SocketRocket, add the following to your Podfile and run `pod install`:
+
+    pod 'SocketRocket'
+
+Create a class called `SCWebSocketConnector` and add the following methods to
+the interface:
+
+    @interface SCWebSocketConnector : NSObject
+
+    - (instancetype)initWithURL:(NSURL *)url;
+    - (void)start;
+    - (void)stop;
+
+    @end
+
+In the first instance, this class is going to connect to the websocket with
+the specified URL and then just log out the messages. Later on we'll see how to
+link it to ReactiveCocoa.
+
+Implement the constructor as follows:
+
+    - (instancetype)initWithURL:(NSURL *)url
+    {
+        self = [super init];
+        if(self) {
+            self.webSocket = [[SRWebSocket alloc] initWithURL:url];
+            self.webSocket.delegate = self;
+        }
+        return self;
+    }
+
+Here we create an `SRWebSocket` instance with the provided URL and set the
+delegate to ourself. We need to implement the following delegate methods:
+
+    #pragma mark - SRWebSocketDelegate Methods
+    - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
+    {
+        NSLog(@"Message received: %@", message);
+    }
+
+    - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
+    {
+        NSLog(@"Websocket failed: %@", error);
+    }
+
+    - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
+    {
+        NSLog(@"Websocket closed");
+    }
+
+The websocket can return 3 states - successful message received, socket closed
+and error. The above code just logs in each instance.
+
+The `start` and `stop` methods are simple wrappers on the websocket itself:
+
+    - (void)start
+    {
+        [self.webSocket open];
+    }
+
+    - (void)stop
+    {
+        [self.webSocket close];
+    }
+
+You can use this class already:
+
+    NSURL *url = [NSURL URLWithString:@"ws://wiki-update-sockets.herokuapp.com/"];
+    self.wsConnector = [[SCWebSocketConnector alloc] initWithURL:url];
+    [self.wsConnector start];
+
+If you run this up then you'll see the messages being logged as they are
+received from the websocket - really simple.
+
+#### Deserializing the events
 
 ### Creating a WebSocket RACSignal
 
