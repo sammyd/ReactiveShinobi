@@ -212,6 +212,55 @@ instances - which is a much more useful object to pass around.
 
 ### Creating a WebSocket RACSignal
 
+This stream of messages from the websocket is an ideal input for a
+ReactiveCocoa system. In the RAC world a `RACSignal` object is responsible for
+generating events, and enables objects to subscribe to receive those events.
+Therefore you're going to add a `RACSignal` property to the websocket connector
+class, which will represent the stream of web socket messages.
+
+In order to use ReactiveCocoa, add the following to your __Podfile__ and run
+`pod install`:
+
+    pod 'ReactiveCocoa', '~> 2.3'
+
+Add the following property to the interface of `SCWebSocketConnector`:
+
+    @property (nonatomic, strong, readonly) RACSignal *messages;
+
+The mutable equivalent of `RACSignal` is `RACSubject`, and this allows you to
+specify create the events manually. A `RACSignal` has 3 events associated with
+it: __next__, __completed__ and __error__. Each of our websocket messages will
+get represented by the __next__ event. Closing the websocket matches
+__completed__ and an error in the websocket will spawn an __error__ event.
+
+Create `RACSubject` and `RACScheduler` properties in the class extension:
+
+    @interface SCWebSocketConnector () <SRWebSocketDelegate>
+
+    @property (nonatomic, strong) SRWebSocket *webSocket;
+    @property (nonatomic, strong) RACScheduler *scheduler;
+    @property (nonatomic, strong) RACSubject *messagesSubj;
+
+    @end
+
+and add the following code to the constructor to create the scheduler and
+subject:
+
+    // Prepare ReactiveCocoa
+    NSString *schedulerName = name;
+    self.scheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault
+                                                    name:name];
+    self.messagesSubj = [RACSubject subject];
+
+Override the `messages` getter as follows:
+
+    - (RACSignal *)messages
+    {
+        return self.messagesSubj;
+    }
+
+`RACSubject` is a subclass of `RACSignal`, so this just returns the subject as
+a signal.
 
 
 
