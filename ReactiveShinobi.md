@@ -174,7 +174,7 @@ objects, and then go on to parse the data string into an `NSDate`:
         if(*error) {
             return nil;
         }
-        
+
         // Want to convert the time string to an NSDate
         static NSDateFormatter *df = nil;
         static dispatch_once_t onceToken;
@@ -182,11 +182,11 @@ objects, and then go on to parse the data string into an `NSDate`:
             df = [[NSDateFormatter alloc] init];
             [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         });
-        
+
         // Create a new dictionary with the appropriate values in
         NSMutableDictionary *parsed = [NSMutableDictionary dictionaryWithDictionary:deserialised];
         parsed[@"time"] = [df dateFromString:[deserialised objectForKey:@"time"]];
-        
+
         return [parsed copy];
     }
 
@@ -202,7 +202,7 @@ follows to use this new utility method:
             NSLog(@"Error parsing JSON String: %@", error);
             return;
         }
-        
+
         NSLog(@"Message received: %@", deserialised);
     }
 
@@ -261,6 +261,52 @@ Override the `messages` getter as follows:
 
 `RACSubject` is a subclass of `RACSignal`, so this just returns the subject as
 a signal.
+
+The `SRWebSocketDelegate` methods need updating to link them up with the
+`RACSubject`:
+
+    #pragma mark - SRWebSocketDelegate Methods
+    - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
+    {
+        NSError *error;
+        NSDictionary *deserialised = [self parseWikipediaUpdateMessage:message error:&error];
+        if(error) {
+            NSLog(@"Error parsing JSON String: %@", error);
+            return;
+        }
+
+        [self.scheduler schedule:^{
+            [self.messagesSubj sendNext:deserialised];
+        }];
+    }
+
+    - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
+    {
+        [self.scheduler schedule:^{
+            [self.messagesSubj sendError:error];
+        }];
+    }
+
+    - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
+    {
+        [self.scheduler schedule:^{
+            [self.messagesSubj sendCompleted];
+        }];
+    }
+
+Sending the deserialized message is as simple as
+
+    [self.messagesSubj sendNext:deserialised];
+
+This will be delivered to anything which has subscribed to the `messages` signal.
+The `RACScheduler` is used here as a serial operation queue - to ensure that
+messages are delivered in order, and there are no threading issues.
+
+That's pretty much it for the changes that you need to make to the web socket
+connector class - in the next section you'll learn how to use it.
+
+#### Using the new RAC-enabled websocket class
+
 
 
 
