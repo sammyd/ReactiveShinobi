@@ -307,8 +307,47 @@ connector class - in the next section you'll learn how to use it.
 
 #### Using the new RAC-enabled websocket class
 
+In the sample project there's a `UILabel` in the storyboard, which is linked to
+the property called `tickerLabel` in `SCViewController`. You're going to see
+how easy it is to update the text in that label with the most recent article to
+be edited on Wikipedia.
 
+The messages which have a `type` of `unspecified` represent the edit events, and
+their `content` property is the name of the article being edited. The following
+few lines of code are all that are needed to wire up the required behavior:
 
+    RAC(self.tickerLabel, text) =                                // 1
+     [[[self.wsConnector.messages                                // 2
+     filter:^BOOL(NSDictionary *value) {                         // 3
+         return [value[@"type"] isEqualToString:@"unspecified"];
+     }]
+     map:^id(NSDictionary *value) {                              // 4
+         return value[@"content"];
+     }]
+     deliverOn:[RACScheduler mainThreadScheduler]];              // 5
+
+The labeled lines are discussed below:
+1. `RAC()` is a magic macro which sets the property named `text` (i.e. the 2nd
+  argument), on the `tickerLabel` object (i.e. the 1st argument) to be the
+  result at each of the
+2. The `messages` property of the `SCWebSocketConnector` class is the `RACSignal`
+that you created in the previous section. You're subscribing to events on this
+signal.
+3. The `filter` method allows you to choose which events are important - i.e.
+those for whom the block returns `YES`. Here you're selecting that you only
+care about the events which have a `type` of `unspecified`.
+4. The `map` method applies the block to each of the events. With this block
+you are extracting the `NSString` associated with the `content` key in the
+`NSDictionary` which represents the event.
+5. Finally, since you are updating the UI, you're requesting that the final event
+be delivered (i.e. `self.tickerLabel.text = ...`) on the main thread.
+
+This demonstrates quite how powerful ReactiveCocoa is for processing streams of
+events. If you were to do this in the standard way for iOS then you'd end up with
+a lot more code. The really cool thing is that this is one pipeline which
+subscribes to the new websocket events, but it's trivial to build additional
+pipelines and get them to subscribe too. In the next section you're going to
+create another pipeline and use it to live-update a ShinobiChart.
 
 ### A Live-data streaming SChartDatasource
 
