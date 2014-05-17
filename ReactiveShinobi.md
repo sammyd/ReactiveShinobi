@@ -551,3 +551,30 @@ but each really concise and self-contained. This is really rather wonderful.
 
 
 ### Conclusion
+
+ReactiveCocoa involves thinking about your app design in quite a different way -
+in terms of a flow of data or a stream of events as opposed to the traditional
+event-handling approach. This change in paradigm can appear a little daunting
+at first - especially as there is a entire vocabulary of unfamiliar terms to
+learn, however I hope you'll agree that this post has demonstrated quite how
+powerful this approach can be.
+
+Once you have something which is capable of generating events (many of which are
+already exist as part of RAC), then the ability to build the processing pipelines
+is both extremely powerful, and also quite a lot of fun.
+
+Streaming data is particularly applicable to appending data to ShinobiCharts, but
+there are other scenarios in which this approach would work nicely with
+ShinobiControls products. I encourage you to have a try at creating your own
+pipeline within the demo app you've built today, and then to think about using
+RAC in your own apps. It needn't be all or nothing - you could use RAC for just
+a small part of you app at first, and as you become more comfortable with it you
+might find that you're finding more and more uses for it.
+
+As ever, the code for this sample project is available on Github at
+[github.com/shinobicontrols/ReactiveShinobi](https://github.com/shinobicontrols/ReactiveShinobi).
+Go ahead and clone the repo and give it a try, and if you have any questions,
+queries or problems, feel free to give us a shout!
+
+
+sam
