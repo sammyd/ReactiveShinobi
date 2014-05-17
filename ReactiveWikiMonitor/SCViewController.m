@@ -45,8 +45,6 @@
     self.chart.licenseKey = @"";
     
     self.datasource = [[SCLiveDataSource alloc] initWithChart:self.chart];
-    [self.view addSubview:self.chart];
-    
     
     
     RACScheduler *scheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault
