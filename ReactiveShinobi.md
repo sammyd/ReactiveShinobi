@@ -427,5 +427,79 @@ That completes the generic live data data source - and it's ready to be wired
 in to a ReactiveCocoa pipeline.
 
 
+#### Using the live-streaming datasource with ReactiveCocoa
+
+The sample project has a `ShinobiChart` set up in the storyboard, so there are a
+few additional things which need configuring in the `viewDidLoad` method of
+`SCViewController`:
+
+    SChartDateTimeAxis *xAxis = [SChartDateTimeAxis new];
+    SChartNumberRange *range = [[SChartNumberRange alloc] initWithMinimum:@0 andMaximum:@5];
+    SChartNumberAxis *yAxis = [[SChartNumberAxis alloc] initWithRange:range];
+    self.chart.xAxis = xAxis;
+    self.chart.yAxis = yAxis;
+
+These simple lines just set the different axis types to match the data types that
+will be plotted.
+
+The class extension defines a property to keep hold of the data source, so the
+following will create one:
+
+    self.datasource = [[SCLiveDataSource alloc] initWithChart:self.chart];
+
+The chart is going to display the current instantaneous Wikipedia edit-rate - i.e.
+the how many message have been received over the websocket in a given time. For
+the purposes of this, the sample rate will be 5 seconds. That means to estimate
+the edit rate, you're going to count how many messages are received in a 5 second
+period and then divide that by 5. This is where ReactiveCocoa pipelines come into
+their own - implementing this functionality without RAC would involve creating
+an `NSTimer` and a counter and implementing a delegate or callback. In RAC it is
+just 10 lines long:
+
+    [[[[[self.wsConnector.messages                      // 1
+      bufferWithTime:5.0 onScheduler:scheduler]         // 2
+      map:^id(RACTuple *value) {                        // 3
+          return @([value count] / 5.0);
+      }]
+      deliverOn:[RACScheduler mainThreadScheduler]]     // 4
+      logNext]                                          // 5
+      subscribeNext:^(id x) {                           // 6
+         [self.datasource appendValue:x];
+      }];
+
+Each of the lines of this pipeline is discussed below:
+1. In the same you did with the original pipeline, your going to subscribe to
+the `messages` `RACSignal` on the web socket connector. You can add as many
+different pipelines to this signal - which is one of the things that makes RAC
+incredibly powerful.
+2. The `bufferWithTime:onScheduler:` method will collect the values from the
+signal for a period of 5 seconds, and then deliver the colletion as a `RACTuple`
+to the pipeline. This single method provides the majority of the functionality
+required to perform the rate calculation.
+3. You've seen the `map` method before - here it's being used to calculate the
+rate from the `RACTuple` - simply the size of the `RACTuple` over the length
+of the temporal window - in this case 5 seconds.
+4. `deliverOn:` is again used to ensure that the result is returns on the main
+thread, since there is goin to be some UI updating again.
+5. `logNext` is a simple utility which will log all of the `next` events emitted
+by the signal. Its primary use is for debugging.
+6. `subscribeNext:` specifies that the supplied block will be executed each time
+a `next` event (as opposed to a `completed` or `error` event). This block is taking
+the `NSNumber` created by the previous `map` method and passing it to the
+datasource with the `appendValue:` message.
+
+If you run the app up now you'll see that along with the names of the edited
+articles, you now have a chart to which a new data point is added every 5 seconds.
+The values plotted represent the current instantaneous edit rate.
+
+This is starting to demonstrate the real power of RAC - you now have 2 distinct
+pipelines which perform completely different processing on the same data source.
+Without RAC this would likely involve ballooning methods, with the different
+functionalities all inter-mixed. With RAC, the pipelines are succinct, easy-to-read,
+and represent an independent chunk of functionality.
+
+
+### Bonus: New user annotations
+
 
 ### Conclusion
