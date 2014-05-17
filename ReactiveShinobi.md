@@ -501,5 +501,53 @@ and represent an independent chunk of functionality.
 
 ### Bonus: New user annotations
 
+Once you've realised the power of these RAC pipelines, it becomes quite a lot of
+fun to build them. In this section you're going to add annotations to the chart
+to represent new-user signup events - represented by the event type `newuser`.
+
+Have a think about what the pipeline might need to do before you read on?
+Remember that you're getting a stream of events, only some of which you are
+interested in. Then you want to transform each of those into an annotation -
+an `SChartAnnotation` in fact. Read on to see the completed pipeline...
+
+
+    [[[[self.wsConnector.messages                                                    // 1
+    filter:^BOOL(NSDictionary *value) {                                              // 2
+        return [value[@"type"] isEqualToString:@"newuser"];
+    }]
+    map:^id(NSDictionary *value) {                                                   // 3
+        UIColor *translucentRed = [[UIColor redColor] colorWithAlphaComponent:0.5];
+        return [SChartAnnotation verticalLineAtPosition:value[@"time"]
+                                              withXAxis:self.chart.xAxis
+                                               andYAxis:self.chart.yAxis
+                                              withWidth:2.0
+                                              withColor:translucentRed];
+    }]
+    deliverOn:[RACScheduler mainThreadScheduler]]                                    // 4
+    subscribeNext:^(SChartAnnotation *annotation) {                                  // 5
+        [self.chart addAnnotation:annotation];
+        [self.chart redrawChart];
+    }];
+
+1. Again, you want to subscribe to the same messages `RACSignal`.
+2. The `filter` operation is used to drop all the events which aren't of type
+`newuser`.
+3. The `NSDictionary` events are mapped to `SChartAnnotation`. This particular
+one is a vertical line, anchored to the `time` attribute of the event on the y-axis.
+This means that as the chart scrolls and rescales, the annotation will remain in
+the correct data location.
+4. Since the UI is being updated, the delivery needs to be marshalled onto the
+main thread.
+5. Finally, the subscription adds the annotation to the chart with `addAnnotation:`
+and tells the chart that it should redraw itself.
+
+Run the app up now and after a while you'll start seeing red vertical lines
+appearing - representing new users signing up.
+
+PICTURE HERE
+
+So now you've created 3 pipelines, each with completely different functionality,
+but each really concise and self-contained. This is really rather wonderful.
+
 
 ### Conclusion
