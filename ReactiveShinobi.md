@@ -351,6 +351,81 @@ create another pipeline and use it to live-update a ShinobiChart.
 
 ### A Live-data streaming SChartDatasource
 
+As you know, data is provided to a ShinobiChart via the `SChartDatasource`
+delegate - which consists of 4 required methods. Since this application consists
+of a stream of data which should result in data points being appended to the
+chart then it makes sense to have a __LiveDatasource__ class, which has the
+following interface:
+
+    @interface SCLiveDataSource : NSObject
+    - (instancetype)initWithChart:(ShinobiChart *)chart;
+    - (void)appendValue:(NSNumber *)value;
+    @end
+
+When a `SCLiveDataSource` is constructed, then you need to provide a chart to
+which the data sent to `appendValue:` is appended. This datasource object is
+going to be pretty generic - it simply plots the given numeric value on the
+y-axis, with the time it was appended on the x-axis.
+
+The class extension adds a property to store the data points, and one to keep a
+reference to the chart:
+
+    @interface SCLiveDataSource () <SChartDatasource>
+
+    @property (nonatomic, strong) ShinobiChart *chart;
+    @property (nonatomic, strong) NSMutableArray *dataPoints;
+
+    @end
+
+Since the `SCLiveDataSource` class adopts the `SChartDataSource` protocol, there
+are 4 methods which need implementing - all of which are fairly simple:
+
+    #pragma mark - SChartDataSource methods
+    - (NSInteger)numberOfSeriesInSChart:(ShinobiChart *)chart
+    {
+        return 1;
+    }
+
+    - (SChartSeries *)sChart:(ShinobiChart *)chart seriesAtIndex:(NSInteger)index
+    {
+        return [SChartLineSeries new];
+    }
+
+    - (NSInteger)sChart:(ShinobiChart *)chart numberOfDataPointsForSeriesAtIndex:(NSInteger)seriesIndex
+    {
+        return [self.dataPoints count];
+    }
+
+    - (id<SChartData>)sChart:(ShinobiChart *)chart dataPointAtIndex:(NSInteger)dataIndex forSeriesAtIndex:(NSInteger)seriesIndex
+    {
+        return self.dataPoints[dataIndex];
+    }
+
+The implementations of these methods simply return a single line series, whose
+datapoints are all stored in the `dataPoints` array.
+
+The final aspect of this datasource class is the `appendValue:` method:
+
+    - (void)appendValue:(NSNumber *)value
+    {
+        SChartDataPoint *dp = [SChartDataPoint new];
+        dp.xValue = [NSDate date];
+        dp.yValue = value;
+        [self.dataPoints addObject:dp];
+        [self.chart appendNumberOfDataPoints:1 toEndOfSeriesAtIndex:0];
+        [self.chart redrawChart];
+    }
+
+This method takes an `NSNumber` and sets it as the y-value of a newly created
+datapoint, whose x-value is the current time. The
+`appendNumberOfDataPoints:toEndOfSeriesAtIndex:` method tells the chart that there
+a new data point is available, and should be drawn at the end of the series.
+This is part of the streaming API, and allows new data to be added to a chart
+without having to reload all the data.
+
+That completes the generic live data data source - and it's ready to be wired
+in to a ReactiveCocoa pipeline.
+
 
 
 ### Conclusion
