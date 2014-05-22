@@ -211,6 +211,7 @@ follows to use this new utility method:
 If you run the app up again you'll see that the log now contains `NSDictionary`
 instances - which is a much more useful object to pass around.
 
+![Deserialised Events](assets/reactive-shinobi-websocket-deserialised.png)
 
 ### Creating a WebSocket RACSignal
 
