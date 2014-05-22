@@ -353,6 +353,8 @@ subscribes to the new websocket events, but it's trivial to build additional
 pipelines and get them to subscribe too. In the next section you're going to
 create another pipeline and use it to live-update a ShinobiChart.
 
+![Live updating edit label](assets/reactive-shinobi-label-updating.gif)
+
 ### A Live-data streaming SChartDatasource
 
 As you know, data is provided to a ShinobiChart via the `SChartDatasource`
@@ -496,6 +498,8 @@ datasource with the `appendValue:` message.
 If you run the app up now you'll see that along with the names of the edited
 articles, you now have a chart to which a new data point is added every 5 seconds.
 The values plotted represent the current instantaneous edit rate.
+
+![Live updating the chart](assets/reactive-shinobi-chart-updating.gif)
 
 This is starting to demonstrate the real power of RAC - you now have 2 distinct
 pipelines which perform completely different processing on the same data source.
