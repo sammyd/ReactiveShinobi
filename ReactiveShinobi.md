@@ -158,6 +158,8 @@ You can use this class already:
 If you run this up then you'll see the messages being logged as they are
 received from the websocket - really simple.
 
+![Websocket Event Log](assets/reactive-shinobi-websocket-log.png)
+
 #### Deserializing the events
 
 The messages returned from `SRWebSocket` are `NSString` objects containing JSON
@@ -546,7 +548,7 @@ and tells the chart that it should redraw itself.
 Run the app up now and after a while you'll start seeing red vertical lines
 appearing - representing new users signing up.
 
-PICTURE HERE
+![New user events](assets/reactive-shinobi-newuser-events.png)
 
 So now you've created 3 pipelines, each with completely different functionality,
 but each really concise and self-contained. This is really rather wonderful.
