@@ -5,7 +5,7 @@ using the functional reactive programming paradigm. This demo project looks at
 how to use RAC with a web socket client, and how to wire up a ShinobiChart to
 append data points as they arrive over the websocket.
 
-PICTURE
+![ReactiveShinobi](assets/reactive-shinobi-complete.gif)
 
 ### Building the project
 
