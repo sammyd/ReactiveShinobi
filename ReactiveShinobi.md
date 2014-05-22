@@ -4,12 +4,12 @@
 
 [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa) is a very
 popular framework which allows developers of iOS and OSX applications to write
-using the [Functional Reactive Programming](http://en.wikipedia.org/wiki/Functional_reactive_programming)
+in a manner inspired by the [Functional Reactive Programming](http://en.wikipedia.org/wiki/Functional_reactive_programming)
 paradigm. It's modeled on [Reactive Extensions](https://rx.codeplex.com/) from
 the .net world, and rather than using mutable variables, data is presented as a
 signal, which represents a stream of the current and future events. These
 signals can be manipulated and are extremely helpful for handling asynchronous
-events. Our CTO, [Colin Eberhardt](https://twitter.com/ColinEberhardt), has
+events. ShinobiControls' CTO, [Colin Eberhardt](https://twitter.com/ColinEberhardt), has
 recently written the [definitive introduction to ReactiveCocoa](http://www.raywenderlich.com/62699/reactivecocoa-tutorial-pt1)
 on [raywenderlich.com](http://www.raywenderlich.com/) - and this is well worth
 a read if the concept is new to you.
@@ -327,9 +327,10 @@ few lines of code are all that are needed to wire up the required behavior:
      deliverOn:[RACScheduler mainThreadScheduler]];              // 5
 
 The labeled lines are discussed below:
+
 1. `RAC()` is a magic macro which sets the property named `text` (i.e. the 2nd
   argument), on the `tickerLabel` object (i.e. the 1st argument) to be the
-  result at each of the
+  result at the end of the pipeline, each time an event is received.
 2. The `messages` property of the `SCWebSocketConnector` class is the `RACSignal`
 that you created in the previous section. You're subscribing to events on this
 signal.
@@ -468,6 +469,7 @@ just 10 lines long:
       }];
 
 Each of the lines of this pipeline is discussed below:
+
 1. In the same you did with the original pipeline, your going to subscribe to
 the `messages` `RACSignal` on the web socket connector. You can add as many
 different pipelines to this signal - which is one of the things that makes RAC
