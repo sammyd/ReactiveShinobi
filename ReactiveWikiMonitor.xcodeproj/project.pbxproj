@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1863634AFC374885859B6AEC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50901DE540F4526A9F28EFC /* libPods.a */; };
+		22285AC3195B6CAC00FD767A /* ShinobiCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22285AC2195B6CAC00FD767A /* ShinobiCharts.framework */; };
 		F426D70D190FE3F900963EDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D70C190FE3F900963EDE /* Foundation.framework */; };
 		F426D70F190FE3F900963EDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D70E190FE3F900963EDE /* CoreGraphics.framework */; };
 		F426D711190FE3F900963EDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D710190FE3F900963EDE /* UIKit.framework */; };
@@ -23,7 +24,6 @@
 		F426D736190FE3FA00963EDE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F426D734190FE3FA00963EDE /* InfoPlist.strings */; };
 		F426D738190FE3FA00963EDE /* ReactiveWikiMonitorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F426D737190FE3FA00963EDE /* ReactiveWikiMonitorTests.m */; };
 		F4528EE9190FE9850063CE8D /* SCWebSocketConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F4528EE8190FE9850063CE8D /* SCWebSocketConnector.m */; };
-		F4528EEB19112A370063CE8D /* ShinobiCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4528EEA19112A370063CE8D /* ShinobiCharts.framework */; };
 		F4528EEF19112A5F0063CE8D /* SCLiveDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F4528EEE19112A5F0063CE8D /* SCLiveDataSource.m */; };
 		F4528EF419112DF70063CE8D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4528EF019112DF70063CE8D /* CoreText.framework */; };
 		F4528EF519112DF70063CE8D /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4528EF119112DF70063CE8D /* libc++.dylib */; };
@@ -42,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22285AC2195B6CAC00FD767A /* ShinobiCharts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShinobiCharts.framework; sourceTree = "<group>"; };
 		40705057108C4AF1A9D3D8DF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D50901DE540F4526A9F28EFC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F426D709190FE3F900963EDE /* ReactiveWikiMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactiveWikiMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,7 +66,6 @@
 		F426D737190FE3FA00963EDE /* ReactiveWikiMonitorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactiveWikiMonitorTests.m; sourceTree = "<group>"; };
 		F4528EE7190FE9850063CE8D /* SCWebSocketConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWebSocketConnector.h; sourceTree = "<group>"; };
 		F4528EE8190FE9850063CE8D /* SCWebSocketConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWebSocketConnector.m; sourceTree = "<group>"; };
-		F4528EEA19112A370063CE8D /* ShinobiCharts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShinobiCharts.framework; path = Library/Frameworks/ShinobiCharts.framework; sourceTree = DEVELOPER_DIR; };
 		F4528EED19112A5F0063CE8D /* SCLiveDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLiveDataSource.h; sourceTree = "<group>"; };
 		F4528EEE19112A5F0063CE8D /* SCLiveDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLiveDataSource.m; sourceTree = "<group>"; };
 		F4528EF019112DF70063CE8D /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -83,8 +83,8 @@
 				F4528EF519112DF70063CE8D /* libc++.dylib in Frameworks */,
 				F4528EF619112DF70063CE8D /* OpenGLES.framework in Frameworks */,
 				F4528EF719112DF70063CE8D /* QuartzCore.framework in Frameworks */,
-				F4528EEB19112A370063CE8D /* ShinobiCharts.framework in Frameworks */,
 				F426D70F190FE3F900963EDE /* CoreGraphics.framework in Frameworks */,
+				22285AC3195B6CAC00FD767A /* ShinobiCharts.framework in Frameworks */,
 				F426D711190FE3F900963EDE /* UIKit.framework in Frameworks */,
 				F426D70D190FE3F900963EDE /* Foundation.framework in Frameworks */,
 				1863634AFC374885859B6AEC /* libPods.a in Frameworks */,
@@ -130,11 +130,11 @@
 		F426D70B190FE3F900963EDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22285AC2195B6CAC00FD767A /* ShinobiCharts.framework */,
 				F4528EF019112DF70063CE8D /* CoreText.framework */,
 				F4528EF119112DF70063CE8D /* libc++.dylib */,
 				F4528EF219112DF70063CE8D /* OpenGLES.framework */,
 				F4528EF319112DF70063CE8D /* QuartzCore.framework */,
-				F4528EEA19112A370063CE8D /* ShinobiCharts.framework */,
 				F426D70C190FE3F900963EDE /* Foundation.framework */,
 				F426D70E190FE3F900963EDE /* CoreGraphics.framework */,
 				F426D710190FE3F900963EDE /* UIKit.framework */,
@@ -514,6 +514,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ReactiveWikiMonitor/ReactiveWikiMonitor-Prefix.pch";
@@ -532,6 +533,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ReactiveWikiMonitor/ReactiveWikiMonitor-Prefix.pch";

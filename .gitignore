@@ -26,3 +26,6 @@ Pods
 # AppCode specific files
 .idea/
 *.iml
+
+# ShinobiControls
+Shinobi*.framework/
