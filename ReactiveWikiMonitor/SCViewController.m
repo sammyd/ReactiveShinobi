@@ -17,12 +17,12 @@
 
 #import "SCViewController.h"
 #import <ShinobiCharts/ShinobiChart.h>
-#import "SCLiveDataSource.h"
 #import "SCWebSocketConnector.h"
+#import "ReactiveWikiMonitor-Swift.h"
 
 @interface SCViewController ()
 
-@property (nonatomic, strong) SCLiveDataSource *datasource;
+@property (nonatomic, strong) LiveDataSource *datasource;
 @property (nonatomic, strong) SCWebSocketConnector *wsConnector;
 
 @end
@@ -44,7 +44,7 @@
     
     self.chart.licenseKey = @"";
     
-    self.datasource = [[SCLiveDataSource alloc] initWithChart:self.chart];
+    self.datasource = [[LiveDataSource alloc] initWithChart:self.chart];
     
     
     RACScheduler *scheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault
