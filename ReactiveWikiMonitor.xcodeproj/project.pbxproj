@@ -10,12 +10,11 @@
 		1863634AFC374885859B6AEC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D50901DE540F4526A9F28EFC /* libPods.a */; };
 		22285AC3195B6CAC00FD767A /* ShinobiCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22285AC2195B6CAC00FD767A /* ShinobiCharts.framework */; };
 		22285AC6195B6D9200FD767A /* LiveDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22285AC5195B6D9200FD767A /* LiveDataSource.swift */; };
+		22285AC8195B733100FD767A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22285AC7195B733100FD767A /* AppDelegate.swift */; };
 		F426D70D190FE3F900963EDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D70C190FE3F900963EDE /* Foundation.framework */; };
 		F426D70F190FE3F900963EDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D70E190FE3F900963EDE /* CoreGraphics.framework */; };
 		F426D711190FE3F900963EDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D710190FE3F900963EDE /* UIKit.framework */; };
 		F426D717190FE3F900963EDE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F426D715190FE3F900963EDE /* InfoPlist.strings */; };
-		F426D719190FE3F900963EDE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F426D718190FE3F900963EDE /* main.m */; };
-		F426D71D190FE3F900963EDE /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F426D71C190FE3F900963EDE /* SCAppDelegate.m */; };
 		F426D720190FE3F900963EDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F426D71E190FE3F900963EDE /* Main.storyboard */; };
 		F426D723190FE3F900963EDE /* SCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F426D722190FE3F900963EDE /* SCViewController.m */; };
 		F426D725190FE3F900963EDE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F426D724190FE3F900963EDE /* Images.xcassets */; };
@@ -45,6 +44,7 @@
 		22285AC2195B6CAC00FD767A /* ShinobiCharts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShinobiCharts.framework; sourceTree = "<group>"; };
 		22285AC4195B6D9200FD767A /* ReactiveWikiMonitor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactiveWikiMonitor-Bridging-Header.h"; sourceTree = "<group>"; };
 		22285AC5195B6D9200FD767A /* LiveDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LiveDataSource.swift; sourceTree = "<group>"; tabWidth = 2; };
+		22285AC7195B733100FD767A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		40705057108C4AF1A9D3D8DF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D50901DE540F4526A9F28EFC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F426D709190FE3F900963EDE /* ReactiveWikiMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactiveWikiMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,10 +53,7 @@
 		F426D710190FE3F900963EDE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F426D714190FE3F900963EDE /* ReactiveWikiMonitor-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ReactiveWikiMonitor-Info.plist"; sourceTree = "<group>"; };
 		F426D716190FE3F900963EDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F426D718190FE3F900963EDE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F426D71A190FE3F900963EDE /* ReactiveWikiMonitor-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactiveWikiMonitor-Prefix.pch"; sourceTree = "<group>"; };
-		F426D71B190FE3F900963EDE /* SCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCAppDelegate.h; sourceTree = "<group>"; };
-		F426D71C190FE3F900963EDE /* SCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCAppDelegate.m; sourceTree = "<group>"; };
 		F426D71F190FE3F900963EDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F426D721190FE3F900963EDE /* SCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCViewController.h; sourceTree = "<group>"; };
 		F426D722190FE3F900963EDE /* SCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCViewController.m; sourceTree = "<group>"; };
@@ -149,8 +146,7 @@
 			children = (
 				F4528EEC19112A420063CE8D /* Datasource */,
 				F4528EE6190FE9510063CE8D /* Connectivity */,
-				F426D71B190FE3F900963EDE /* SCAppDelegate.h */,
-				F426D71C190FE3F900963EDE /* SCAppDelegate.m */,
+				22285AC7195B733100FD767A /* AppDelegate.swift */,
 				F426D71E190FE3F900963EDE /* Main.storyboard */,
 				F426D721190FE3F900963EDE /* SCViewController.h */,
 				F426D722190FE3F900963EDE /* SCViewController.m */,
@@ -166,7 +162,6 @@
 				22285AC4195B6D9200FD767A /* ReactiveWikiMonitor-Bridging-Header.h */,
 				F426D714190FE3F900963EDE /* ReactiveWikiMonitor-Info.plist */,
 				F426D715190FE3F900963EDE /* InfoPlist.strings */,
-				F426D718190FE3F900963EDE /* main.m */,
 				F426D71A190FE3F900963EDE /* ReactiveWikiMonitor-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -355,11 +350,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F426D71D190FE3F900963EDE /* SCAppDelegate.m in Sources */,
+				22285AC8195B733100FD767A /* AppDelegate.swift in Sources */,
 				F4528EE9190FE9850063CE8D /* SCWebSocketConnector.m in Sources */,
 				F426D723190FE3F900963EDE /* SCViewController.m in Sources */,
 				22285AC6195B6D9200FD767A /* LiveDataSource.swift in Sources */,
-				F426D719190FE3F900963EDE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
