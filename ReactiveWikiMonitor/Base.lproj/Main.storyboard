@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,19 +18,16 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9f-3H-meh" customClass="ShinobiChart">
                                 <rect key="frame" x="0.0" y="20" width="568" height="263"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0b-Cy-1P2">
                                 <rect key="frame" x="118" y="291" width="430" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="Latest Edit:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dd4-Ca-1Nd">
                                 <rect key="frame" x="20" y="291" width="90" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cyan="0.0" magenta="1" yellow="1" black="0.31999999280000002" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -39,11 +36,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="e0b-Cy-1P2" firstAttribute="leading" secondItem="Dd4-Ca-1Nd" secondAttribute="trailing" constant="8" symbolic="YES" id="DC4-HX-1Mb"/>
+                            <constraint firstItem="d9f-3H-meh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Dsf-XN-QDL"/>
                             <constraint firstItem="e0b-Cy-1P2" firstAttribute="top" secondItem="d9f-3H-meh" secondAttribute="bottom" constant="8" symbolic="YES" id="GxS-Hv-PdI"/>
-                            <constraint firstAttribute="centerX" secondItem="d9f-3H-meh" secondAttribute="centerX" id="a9E-jA-0s1"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="e0b-Cy-1P2" secondAttribute="bottom" constant="20" symbolic="YES" id="dF3-8Q-fkL"/>
-                            <constraint firstAttribute="width" secondItem="d9f-3H-meh" secondAttribute="width" id="hXP-9q-A8t"/>
                             <constraint firstItem="e0b-Cy-1P2" firstAttribute="centerY" secondItem="Dd4-Ca-1Nd" secondAttribute="centerY" id="jFI-Yh-KFK"/>
+                            <constraint firstAttribute="trailing" secondItem="d9f-3H-meh" secondAttribute="trailing" id="kfM-DY-Jgs"/>
                             <constraint firstItem="Dd4-Ca-1Nd" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="wfc-Ry-E6T"/>
                             <constraint firstAttribute="trailing" secondItem="e0b-Cy-1P2" secondAttribute="trailing" constant="20" id="wgD-pz-JF8"/>
                             <constraint firstItem="d9f-3H-meh" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="xih-6m-LGi"/>
