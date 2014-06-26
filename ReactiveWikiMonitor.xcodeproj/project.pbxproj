@@ -11,6 +11,7 @@
 		22285AC3195B6CAC00FD767A /* ShinobiCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22285AC2195B6CAC00FD767A /* ShinobiCharts.framework */; };
 		22285AC6195B6D9200FD767A /* LiveDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22285AC5195B6D9200FD767A /* LiveDataSource.swift */; };
 		22285AC8195B733100FD767A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22285AC7195B733100FD767A /* AppDelegate.swift */; };
+		22285ACA195B75BB00FD767A /* WebSocketConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22285AC9195B75BB00FD767A /* WebSocketConnector.swift */; };
 		F426D70D190FE3F900963EDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D70C190FE3F900963EDE /* Foundation.framework */; };
 		F426D70F190FE3F900963EDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D70E190FE3F900963EDE /* CoreGraphics.framework */; };
 		F426D711190FE3F900963EDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D710190FE3F900963EDE /* UIKit.framework */; };
@@ -23,7 +24,6 @@
 		F426D72E190FE3FA00963EDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D710190FE3F900963EDE /* UIKit.framework */; };
 		F426D736190FE3FA00963EDE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F426D734190FE3FA00963EDE /* InfoPlist.strings */; };
 		F426D738190FE3FA00963EDE /* ReactiveWikiMonitorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F426D737190FE3FA00963EDE /* ReactiveWikiMonitorTests.m */; };
-		F4528EE9190FE9850063CE8D /* SCWebSocketConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F4528EE8190FE9850063CE8D /* SCWebSocketConnector.m */; };
 		F4528EF419112DF70063CE8D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4528EF019112DF70063CE8D /* CoreText.framework */; };
 		F4528EF519112DF70063CE8D /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4528EF119112DF70063CE8D /* libc++.dylib */; };
 		F4528EF619112DF70063CE8D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4528EF219112DF70063CE8D /* OpenGLES.framework */; };
@@ -45,6 +45,7 @@
 		22285AC4195B6D9200FD767A /* ReactiveWikiMonitor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactiveWikiMonitor-Bridging-Header.h"; sourceTree = "<group>"; };
 		22285AC5195B6D9200FD767A /* LiveDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LiveDataSource.swift; sourceTree = "<group>"; tabWidth = 2; };
 		22285AC7195B733100FD767A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
+		22285AC9195B75BB00FD767A /* WebSocketConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = WebSocketConnector.swift; sourceTree = "<group>"; tabWidth = 2; };
 		40705057108C4AF1A9D3D8DF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D50901DE540F4526A9F28EFC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F426D709190FE3F900963EDE /* ReactiveWikiMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactiveWikiMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,8 +64,6 @@
 		F426D733190FE3FA00963EDE /* ReactiveWikiMonitorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ReactiveWikiMonitorTests-Info.plist"; sourceTree = "<group>"; };
 		F426D735190FE3FA00963EDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F426D737190FE3FA00963EDE /* ReactiveWikiMonitorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactiveWikiMonitorTests.m; sourceTree = "<group>"; };
-		F4528EE7190FE9850063CE8D /* SCWebSocketConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWebSocketConnector.h; sourceTree = "<group>"; };
-		F4528EE8190FE9850063CE8D /* SCWebSocketConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWebSocketConnector.m; sourceTree = "<group>"; };
 		F4528EF019112DF70063CE8D /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		F4528EF119112DF70063CE8D /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		F4528EF219112DF70063CE8D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -188,8 +187,7 @@
 		F4528EE6190FE9510063CE8D /* Connectivity */ = {
 			isa = PBXGroup;
 			children = (
-				F4528EE7190FE9850063CE8D /* SCWebSocketConnector.h */,
-				F4528EE8190FE9850063CE8D /* SCWebSocketConnector.m */,
+				22285AC9195B75BB00FD767A /* WebSocketConnector.swift */,
 			);
 			name = Connectivity;
 			sourceTree = "<group>";
@@ -351,9 +349,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				22285AC8195B733100FD767A /* AppDelegate.swift in Sources */,
-				F4528EE9190FE9850063CE8D /* SCWebSocketConnector.m in Sources */,
 				F426D723190FE3F900963EDE /* SCViewController.m in Sources */,
 				22285AC6195B6D9200FD767A /* LiveDataSource.swift in Sources */,
+				22285ACA195B75BB00FD767A /* WebSocketConnector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

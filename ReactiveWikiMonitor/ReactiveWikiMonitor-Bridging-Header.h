@@ -3,3 +3,5 @@
 //
 
 #import <ShinobiCharts/ShinobiChart.h>
+#import <SocketRocket/SRWebSocket.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>

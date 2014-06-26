@@ -16,14 +16,20 @@
 
 
 #import "SCViewController.h"
+
+// Need to import these before the swift header
 #import <ShinobiCharts/ShinobiChart.h>
-#import "SCWebSocketConnector.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <SocketRocket/SRWebSocket.h>
+
+// Allow access to the swift files
 #import "ReactiveWikiMonitor-Swift.h"
+
 
 @interface SCViewController ()
 
 @property (nonatomic, strong) LiveDataSource *datasource;
-@property (nonatomic, strong) SCWebSocketConnector *wsConnector;
+@property (nonatomic, strong) WebSocketConnector *wsConnector;
 
 @end
 
@@ -50,7 +56,8 @@
     RACScheduler *scheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault
                                                              name:@"com.shinobicontrols.ReactiveWikiMonitor.bufferScheduler"];
     
-    self.wsConnector = [[SCWebSocketConnector alloc] initWithURL:[NSURL URLWithString:@"ws://wiki-update-sockets.herokuapp.com/"]];
+    self.wsConnector = [[WebSocketConnector alloc] initWithUrl:[NSURL URLWithString:@"ws://wiki-update-sockets.herokuapp.com/"]];
+    
     [self.wsConnector start];
     
     // Calculate the rate
