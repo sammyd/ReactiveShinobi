@@ -65,21 +65,15 @@ class ViewController: UIViewController {
     
     // Extract the edited content
     wsConnector.messages
-      .filter({(value: AnyObject!) -> Bool in
-        if let dict = value as? NSDictionary {
+      .filterAs({ (dict: NSDictionary) in
           return (dict["type"] as NSString).isEqualToString("unspecified")
-        }
-        return false
         })
-      .map({(value: AnyObject!) -> AnyObject! in
-        if let dict = value as? NSDictionary {
-          return dict["content"]
-        }
-        return nil
+      .mapAs({ (dict: NSDictionary) -> NSString in
+        return dict["content"] as NSString
         })
       .deliverOn(RACScheduler.mainThreadScheduler())
-      .subscribeNext({(value: AnyObject!) in
-        self.tickerLabel.text = value as String
+      .subscribeNextAs({(value: NSString) in
+        self.tickerLabel.text = value
         })
     
     /*

@@ -13,6 +13,7 @@
 		22285AC8195B733100FD767A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22285AC7195B733100FD767A /* AppDelegate.swift */; };
 		22285ACA195B75BB00FD767A /* WebSocketConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22285AC9195B75BB00FD767A /* WebSocketConnector.swift */; };
 		2240136F195BF55C0083119F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240136E195BF55C0083119F /* ViewController.swift */; };
+		2266A6F9195E155100528CEA /* RACExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2266A6F8195E155100528CEA /* RACExtensions.swift */; };
 		F426D70D190FE3F900963EDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D70C190FE3F900963EDE /* Foundation.framework */; };
 		F426D70F190FE3F900963EDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D70E190FE3F900963EDE /* CoreGraphics.framework */; };
 		F426D711190FE3F900963EDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F426D710190FE3F900963EDE /* UIKit.framework */; };
@@ -47,6 +48,7 @@
 		22285AC7195B733100FD767A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		22285AC9195B75BB00FD767A /* WebSocketConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = WebSocketConnector.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2240136E195BF55C0083119F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		2266A6F8195E155100528CEA /* RACExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RACExtensions.swift; sourceTree = "<group>"; tabWidth = 2; };
 		40705057108C4AF1A9D3D8DF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D50901DE540F4526A9F28EFC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F426D709190FE3F900963EDE /* ReactiveWikiMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactiveWikiMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +100,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2266A6F7195E153500528CEA /* RACExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				2266A6F8195E155100528CEA /* RACExtensions.swift */,
+			);
+			name = RACExtensions;
+			sourceTree = "<group>";
+		};
 		F426D700190FE3F900963EDE = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +151,7 @@
 		F426D712190FE3F900963EDE /* ReactiveWikiMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				2266A6F7195E153500528CEA /* RACExtensions */,
 				F4528EEC19112A420063CE8D /* Datasource */,
 				F4528EE6190FE9510063CE8D /* Connectivity */,
 				22285AC7195B733100FD767A /* AppDelegate.swift */,
@@ -347,6 +358,7 @@
 				2240136F195BF55C0083119F /* ViewController.swift in Sources */,
 				22285AC8195B733100FD767A /* AppDelegate.swift in Sources */,
 				22285AC6195B6D9200FD767A /* LiveDataSource.swift in Sources */,
+				2266A6F9195E155100528CEA /* RACExtensions.swift in Sources */,
 				22285ACA195B75BB00FD767A /* WebSocketConnector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
