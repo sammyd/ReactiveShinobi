@@ -56,8 +56,8 @@ class ViewController: UIViewController {
     // Calculate the rate
     wsConnector.messages
       .bufferWithTime(5, onScheduler: scheduler)
-      .map({ (value: AnyObject!) -> AnyObject! in
-        return Double(value.count) / 5.0
+      .mapAs({ (value: RACTuple) -> NSNumber in
+        return NSNumber(double: Double(value.count) / 5.0)
         })
       .deliverOn(RACScheduler.mainThreadScheduler())
       .logNext()
@@ -76,29 +76,24 @@ class ViewController: UIViewController {
         self.tickerLabel.text = value
         })
     
-    /*
     // Find the new user events
     wsConnector.messages
-      .filter({(value: AnyObject!) -> Bool in
-        if let dict = value as? NSDictionary {
-          return (dict["type"] as NSString).isEqualToString("newuser")
-        }
-        return false
+      .filterAs({ (value: NSDictionary) -> Bool in
+          return (value["type"] as NSString).isEqualToString("newuser")
         })
-      .map({(value: AnyObject!) -> AnyObject! in
-        if let dict = value as? NSDictionary {
-          let annotation =  SChartAnnotation.verticalLineAtPosition(value["time"], withXAxis: self.chart.xAxis, andYAxis: self.chart.yAxis, withWidth: 2.0, withColor: UIColor.redColor().colorWithAlphaComponent(0.5))
-        }
-        return nil
+      .mapAs({ (value: NSDictionary) -> SChartAnnotation in
+        return self.createNewUserAnnotation(value["time"])
         })
       .deliverOn(RACScheduler.mainThreadScheduler())
-      .subscribeNext({(value: AnyObject!) in
-        if let annotation = value as? SChartAnnotation {
-          self.chart.addAnnotation(annotation)
-          self.chart.redrawChart()
-        }
+      .subscribeNextAs({ (value: SChartAnnotation) in
+        self.chart.addAnnotation(value)
+        self.chart.redrawChart()
         })
-*/
+  }
+  
+  // Utility function
+  func createNewUserAnnotation(time: AnyObject!) -> SChartAnnotation {
+    return SChartAnnotation.verticalLineAtPosition(time, withXAxis: self.chart.xAxis, andYAxis: self.chart.yAxis, withWidth: 2.0, withColor: UIColor.redColor().colorWithAlphaComponent(0.5))
   }
   
   
